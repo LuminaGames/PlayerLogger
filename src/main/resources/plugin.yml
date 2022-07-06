@@ -1,0 +1,7 @@
+name: PlayerLogger
+version: '${project.version}'
+main: me.comphack.playerlogger.PlayerLogger
+authors: [COMPHACK]
+description: Logs Player information after joining the server such as IP Information, Join Date etc.
+commands:
+    playerlogs:
