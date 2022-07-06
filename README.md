@@ -1,4 +1,4 @@
-# PlayerLogger-Issues
+# PlayerLogger
 A Simple Plugin that logs information about your players on joining.
 
 
