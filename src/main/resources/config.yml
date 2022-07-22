@@ -1,6 +1,7 @@
-MySql:
-    enable: false
+database:
+    enabled: false
     host: ''
+    database: ''
     username: ''
     password: ''
-    port: ''
+    port: '3306'
