@@ -1,0 +1,7 @@
+database:
+    enabled: false
+    host: ''
+    database: ''
+    username: ''
+    password: ''
+    port: '3306'
