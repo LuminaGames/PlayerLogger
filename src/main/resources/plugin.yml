@@ -1,7 +1,9 @@
 name: PlayerLogger
 version: '${project.version}'
 main: me.comphack.playerlogger.PlayerLogger
+api-version: 1.19
+load: STARTUP
 authors: [COMPHACK]
-description: Logs Player information after joining the server such as IP Information, Join Date etc.
+description: A simple plugins that logs information about your players on the server
 commands:
-    playerlogs:
+    playerlogger:

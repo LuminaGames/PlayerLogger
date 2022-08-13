@@ -1,36 +1,29 @@
 package me.comphack.playerlogger;
 
-import me.comphack.playerlogger.commands.Plogs;
+
+import me.comphack.playerlogger.commands.CommandManager;
+import me.comphack.playerlogger.database.DatabaseManager;
+
+
 import me.comphack.playerlogger.events.JoinEvent;
-import me.comphack.playerlogger.utils.Utils;
+import me.comphack.playerlogger.events.LeaveEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.sql.SQLException;
 
 
 public class PlayerLogger extends JavaPlugin implements Listener {
-
-
-    private Utils database = new Utils();
+    private CommandManager cmd;
+    private DatabaseManager dbmanager = new DatabaseManager();
     @Override
     public void onEnable() {
-        if(getConfig().getBoolean("database.enabled")) {
-            try {
-                database.getDatabaseFile().connectMySQL();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                database.getDatabaseFile().createSQLiteDatabase();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        dbmanager.setupJDBC();
+        dbmanager.PluginDatabase();
+        cmd = new CommandManager(this);
         getConfig().options().copyDefaults(true);
         saveConfig();
-        initializeCommands();
         initializeEvents();
         onEnableText();
     }
@@ -39,7 +32,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         getLogger().info("--------------------------------------------------");
         getLogger().info("                                                  ");
         getLogger().info("          Enabled Player Logger                   ");
-        getLogger().info("                 v1.1-ALPHA                       ");
+        getLogger().info("                 v1.0                       ");
         getLogger().info("                                                  ");
         getLogger().info("           Developed by COMPHACK                  ");
         getLogger().info("                                                  ");
@@ -49,16 +42,16 @@ public class PlayerLogger extends JavaPlugin implements Listener {
     }
 
     public void initializeEvents() {
-        this.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new LeaveEvent(), this);
     }
 
-    public void initializeCommands() {
-        this.getCommand("playerlogs").setExecutor(new Plogs());
-    }
+
+
 
     @Override
     public void onDisable() {
-        getLogger().info("PlayerLogger v1.1-ALPHA has successfully shut down");
+        getLogger().info("PlayerLogger v1.0 has successfully shut down");
         getLogger().info("Thank You For using my plugin.");
 
     }
