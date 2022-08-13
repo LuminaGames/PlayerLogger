@@ -1,0 +1,27 @@
+database:
+    enabled: false
+    host: ''
+    database: ''
+    username: ''
+    password: ''
+    port: '3306'
+
+
+messages:
+    prefix: "&7[&6PlayerLogger&7] "
+    unknown-command: "{prefix}Unknown Command. Please type &6/playerlogger help"
+    playeronly-command: "{prefix}&cThis command can only be executed by a player."
+    no-permission: "{prefix}&cYou do not have permission to execute this command."
+    help-1:
+    - ''
+    - '&6&lPlayerLogger &7developed by &6&lCOMPHACK'
+    - '&6&lVersion: &7{version}'
+    - ''
+    - '&6&lCommands:'
+    - '&6/playerlogger help &7- &fShows this message'
+    - '&6/playerlogger getlogs <Player> &7- &fGet all logs for a player'
+    - '&6/playerlogger transfer &7- &fTransfer Data from SQLite Database to MySQL'
+    - '&cWAlayerRNING: Read Documentation Properly Before Running above Command.'
+    - '&6/playerlogger lastlogoutlocation <player> &7- &fGet Last Log out location of a player'
+    - '&6/playerlogger firstjoinlocation <player> &7- &fGet the first join location of a player'
+

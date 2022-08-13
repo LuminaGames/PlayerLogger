@@ -1,0 +1,9 @@
+name: PlayerLogger
+version: '${project.version}'
+main: me.comphack.playerlogger.PlayerLogger
+api-version: 1.19
+load: STARTUP
+authors: [COMPHACK]
+description: A simple plugins that logs information about your players on the server
+commands:
+    playerlogger:
