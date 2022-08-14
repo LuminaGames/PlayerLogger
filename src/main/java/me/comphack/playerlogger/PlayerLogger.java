@@ -19,11 +19,11 @@ public class PlayerLogger extends JavaPlugin implements Listener {
     private DatabaseManager dbmanager = new DatabaseManager();
     @Override
     public void onEnable() {
-        dbmanager.setupJDBC();
-        dbmanager.PluginDatabase();
         cmd = new CommandManager(this);
         getConfig().options().copyDefaults(true);
         saveConfig();
+        dbmanager.setupJDBC();
+        dbmanager.PluginDatabase();
         initializeEvents();
         onEnableText();
     }
@@ -32,7 +32,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         getLogger().info("--------------------------------------------------");
         getLogger().info("                                                  ");
         getLogger().info("          Enabled Player Logger                   ");
-        getLogger().info("                 v1.0                       ");
+        getLogger().info("                 v1.0.1                     ");
         getLogger().info("                                                  ");
         getLogger().info("           Developed by COMPHACK                  ");
         getLogger().info("                                                  ");
