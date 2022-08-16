@@ -28,7 +28,9 @@ public class DatabaseManager {
         port = utils.getPluginConfig().getConfig().getString("database.port");
         if (utils.getPluginConfig().getConfig().getBoolean("database.enabled")) {
             Url = "jdbc:mysql://" + host + ":" + port + "/" + database;
+            Bukkit.getLogger().info("Using Storage Method [MySQL]");
         } else {
+            Bukkit.getLogger().info("Using Storage Method [SQLite]");
             File database = new File(Bukkit.getServer().getPluginManager().getPlugin("PlayerLogger").getDataFolder(), "PlayerLogger.db");
             if (!database.exists()) {
                 try {
@@ -49,10 +51,6 @@ public class DatabaseManager {
     }
 
 
-    HikariDataSource dataSource;
-    private HikariConfig hikariConfig;
-
-
     public void PluginDatabase() {
         String SQL = "CREATE TABLE IF NOT EXISTS player_logs " +
                 "(username VARCHAR(16) PRIMARY KEY," +
@@ -67,9 +65,14 @@ public class DatabaseManager {
                 " firstjoin_x VARCHAR(32)," +
                 " firstjoin_y VARCHAR(32)," +
                 " firstjoin_z VARCHAR(32));";
+        String SQL2 = " CREATE TABLE IF NOT EXISTS chat_logs" +
+                " (username VARCHAR(16), " +
+                " message VARCHAR(256), " +
+                " date_and_time VARCHAR(32));";
 
         try {
             connection.createStatement().execute(SQL);
+            connection.createStatement().execute(SQL2);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -156,6 +159,25 @@ public class DatabaseManager {
         String SQL = "UPDATE player_logs SET logout_world = '" + world + "', logout_x = '" + x + "'," +
                 " logout_y = '" + y + "', logout_z = '" + z + "' WHERE username = '" + player + "';";
         connection.createStatement().execute(SQL);
+
+    }
+
+    public void addChatLogs(String player, String message ,String dateTime) throws SQLException {
+        String SQL = "INSERT INTO chat_logs (username, message, date_and_time) VALUES ('" + player + "', '" + message + "', '" + dateTime + "');";
+        connection.createStatement().execute(SQL);
+    }
+
+    public String getChatLogs(String player, int limit) throws SQLException {
+        String SQL = "SELECT * FROM chat_logs WHERE username = '" + player + "' LIMIT " + limit + ";";
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(SQL);
+        String ChatData = "No Data!";
+        while(resultSet.next()) {
+            for(int i = 1; i < limit; i++)
+                ChatData = resultSet.getString(i);
+
+        }
+        return ChatData;
 
     }
 

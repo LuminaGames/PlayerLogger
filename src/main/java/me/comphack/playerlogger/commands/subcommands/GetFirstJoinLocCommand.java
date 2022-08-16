@@ -14,10 +14,8 @@ public class GetFirstJoinLocCommand implements SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) throws SQLException {
-        if(args[1].contains("-") || args[1].contains("'") || args[1].contains("\"") ){
+        if(args[1].contains("-") || args[1].contains("'") || args[1].contains("\"") || args.length < 1){
             sender.sendMessage(utils.chatcolor("&cPlease specify a player or a appropriate characters"));
-        } else if(args.length < 2) {
-            sender.sendMessage("Specify player");
         } else {
             String location = database.getFirstJoinInfo(args[1]);
             sender.sendMessage(utils.chatcolor("&6First Location for " + args[1]));

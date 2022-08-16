@@ -6,6 +6,8 @@ database:
     password: ''
     port: '3306'
 
+general:
+    check-updates: true
 
 messages:
     prefix: "&7[&6PlayerLogger&7] "

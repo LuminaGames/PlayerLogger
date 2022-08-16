@@ -23,6 +23,7 @@ public class CommandManager implements TabExecutor {
         subCommands.add(new TransferCommand());
         subCommands.add(new GetFirstJoinLocCommand());
         subCommands.add(new GetLogOutLocCommand());
+        subCommands.add(new GetChatLogsCommand());
         PluginCommand command = plugin.getCommand("playerlogger");
         command.setExecutor(this);
         command.setTabCompleter(this);

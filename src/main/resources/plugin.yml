@@ -1,5 +1,5 @@
 name: PlayerLogger
-version: '${project.version}'
+version: ${project.version}
 main: me.comphack.playerlogger.PlayerLogger
 api-version: 1.13
 load: STARTUP

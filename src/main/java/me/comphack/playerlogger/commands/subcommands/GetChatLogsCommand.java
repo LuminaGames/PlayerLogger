@@ -1,19 +1,19 @@
 package me.comphack.playerlogger.commands.subcommands;
 
 import me.comphack.playerlogger.commands.SubCommand;
-import me.comphack.playerlogger.utils.Utils;
+import me.comphack.playerlogger.database.DatabaseManager;
 import org.bukkit.command.CommandSender;
 
+import java.sql.SQLException;
 import java.util.List;
 
-public class HelpCommand implements SubCommand {
+public class GetChatLogsCommand implements SubCommand {
+    private DatabaseManager database =  new DatabaseManager();
 
-    private Utils utils = new Utils();
+
     @Override
-    public void execute(CommandSender sender, String[] args) {
-        for (String msgs : utils.getPluginConfig().getConfig().getStringList("messages.help-1")) {
-            sender.sendMessage(utils.chatcolor(msgs).replace("{version}", "1.0"));
-        }
+    public void execute(CommandSender sender, String[] args) throws SQLException {
+        sender.sendMessage(database.getChatLogs(args[1], Integer.parseInt(args[2])));
     }
 
     @Override
@@ -23,17 +23,16 @@ public class HelpCommand implements SubCommand {
 
     @Override
     public String getLabel() {
-        return "help";
+        return "getchatlogs";
     }
 
     @Override
     public String getPermission() {
-        return "playerlogger.command.help";
+        return "playerlogger.command.getchatlogs";
     }
 
     @Override
     public boolean isPlayerOnly() {
         return false;
     }
-
 }
