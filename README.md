@@ -16,8 +16,11 @@ Report any bugs or errors in the plugin here.
 
 This plugin is in heavy development and might have bugs.
 
+<h2 align="center">Servers Using Player Logger</h2>
+
+# ![bStats](https://bstats.org/signatures/bukkit/Player%20Logger.svg)
+# [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V3E5ZSM)
+
 © 2022 COMPHACK (Vedant) 
 
 OpenSource Under [MIT License](https://github.com/COMP-HACK/PlayerLogger/blob/main/LICENSE.md) 
-
-# [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V3E5ZSM)
