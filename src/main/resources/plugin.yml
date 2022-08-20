@@ -7,3 +7,4 @@ authors: [COMPHACK]
 description: A simple plugins that logs information about your players on the server
 commands:
     playerlogger:
+        description: Basic Plugin Command for PlayerLogger

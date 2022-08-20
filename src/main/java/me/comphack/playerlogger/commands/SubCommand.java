@@ -1,14 +1,23 @@
 package me.comphack.playerlogger.commands;
 
-import org.bukkit.command.CommandSender;
+
+import org.bukkit.entity.Player;
 
 import java.sql.SQLException;
-import java.util.List;
 
-public interface SubCommand {
-    void execute(CommandSender sender, String[] args) throws SQLException;
-    List<String> tabComplete(CommandSender sender, String[] args);
-    String getLabel();
-    String getPermission();
-    boolean isPlayerOnly();
+
+public abstract class SubCommand {
+
+    //name of the subcommand ex. /prank <subcommand> <-- that
+    public abstract String getName();
+
+    //ex. "This is a subcommand that let's a shark eat someone"
+    public abstract String getDescription();
+
+    //How to use command ex. /prank freeze <player>
+    public abstract String getSyntax();
+
+    //code for the subcommand
+    public abstract void perform(Player player, String args[]) throws SQLException;
+
 }

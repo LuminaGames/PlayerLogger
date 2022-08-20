@@ -1,7 +1,5 @@
 package me.comphack.playerlogger.database;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import me.comphack.playerlogger.utils.Utils;
 import org.bukkit.Bukkit;
 
@@ -69,10 +67,15 @@ public class DatabaseManager {
                 " (username VARCHAR(16), " +
                 " message VARCHAR(256), " +
                 " date_and_time VARCHAR(32));";
+        String SQL3 = " CREATE TABLE IF NOT EXISTS command_logs" +
+                " (username VARCHAR(16), " +
+                " command VARCHAR(256), " +
+                " date_and_time VARCHAR(32));";
 
         try {
             connection.createStatement().execute(SQL);
             connection.createStatement().execute(SQL2);
+            connection.createStatement().execute(SQL3);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -180,6 +183,12 @@ public class DatabaseManager {
         return ChatData;
 
     }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+
 
 
 

@@ -1,38 +1,39 @@
 package me.comphack.playerlogger.commands.subcommands;
 
 import me.comphack.playerlogger.commands.SubCommand;
-import me.comphack.playerlogger.database.DatabaseManager;
-import org.bukkit.command.CommandSender;
+import me.comphack.playerlogger.utils.Utils;
+import org.bukkit.entity.Player;
 
-import java.sql.SQLException;
-import java.util.List;
 
-public class GetChatLogsCommand implements SubCommand {
-    private DatabaseManager database =  new DatabaseManager();
+public class GetChatLogsCommand extends SubCommand {
+    private Utils utils = new Utils();
 
 
     @Override
-    public void execute(CommandSender sender, String[] args) throws SQLException {
-        sender.sendMessage(database.getChatLogs(args[1], Integer.parseInt(args[2])));
-    }
-
-    @Override
-    public List<String> tabComplete(CommandSender sender, String[] args) {
-        return null;
-    }
-
-    @Override
-    public String getLabel() {
+    public String getName() {
         return "getchatlogs";
     }
 
     @Override
-    public String getPermission() {
-        return "playerlogger.command.getchatlogs";
+    public String getDescription() {
+        return "&6Get the last n number chat logs of a user from the database";
     }
 
     @Override
-    public boolean isPlayerOnly() {
-        return false;
+    public String getSyntax() {
+        return "&6/playerlogger getchatlogs <Player> <Amount>&c**";
+    }
+
+    @Override
+    public void perform(Player player, String[] args) {
+        if(player.hasPermission("playerlogger.command.getchatlogs") || player.hasPermission("playerlogger.command.*")){
+            player.sendMessage(utils.chatcolor("{prefix}&cThis command is in development.")
+                    .replace("{prefix}", utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.prefix"
+                    ))));
+        } else {
+            player.sendMessage(utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.no-permission")
+                    .replace("{prefix}", utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.prefix"
+                    )))));
+        }
     }
 }

@@ -1,10 +1,7 @@
 package me.comphack.playerlogger;
 
-
-import com.avaje.ebean.Update;
 import me.comphack.playerlogger.commands.CommandManager;
 import me.comphack.playerlogger.database.DatabaseManager;
-
 
 import me.comphack.playerlogger.events.ChatEvent;
 import me.comphack.playerlogger.events.JoinEvent;
@@ -12,8 +9,6 @@ import me.comphack.playerlogger.events.LeaveEvent;
 import me.comphack.playerlogger.utils.Metrics;
 import me.comphack.playerlogger.utils.UpdateChecker;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PlayerLogger extends JavaPlugin implements Listener {
     private CommandManager cmd;
     private DatabaseManager dbmanager = new DatabaseManager();
+
     @Override
     public void onEnable() {
         getConfig().options().copyDefaults(true);
@@ -31,7 +27,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         dbmanager.PluginDatabase();
         getLogger().info("Loaded Database!");
         initializeEvents();
-        cmd = new CommandManager(this);
+        getCommand("playerlogger").setExecutor(new CommandManager());
         getLogger().info("Loaded Events & Commands");
         onEnableText();
         int pluginId = 16130;
@@ -61,7 +57,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         getLogger().info("--------------------------------------------------");
         getLogger().info("                                                  ");
         getLogger().info("          Enabled Player Logger                   ");
-        getLogger().info("                 v1.1.0                       ");
+        getLogger().info("                 " + getServer().getPluginManager().getPlugin("PlayerLogger").getDescription().getVersion());
         getLogger().info("                                                  ");
         getLogger().info("           Developed by COMPHACK                  ");
         getLogger().info("                                                  ");

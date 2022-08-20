@@ -1,15 +1,14 @@
 package me.comphack.playerlogger.utils;
 
-import com.avaje.ebean.validation.NotNull;
-import me.comphack.playerlogger.PlayerLogger;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.java.JavaPlugin;
-
+import org.jetbrains.annotations.NotNull;
 import com.google.common.base.Preconditions;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
+import org.apache.commons.lang.math.NumberUtils;
+import org.bukkit.plugin.java.JavaPlugin;
 
+import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -17,11 +16,6 @@ import java.net.URL;
 import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.lang.math.NumberUtils;
-
-
-import javax.annotation.Nullable;
 
 public class UpdateChecker {
     /** The default version scheme for this update checker */
