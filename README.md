@@ -14,7 +14,6 @@ An plugin that logs information about your players on joining the server.
 
 Report any bugs or errors in the plugin here.
 
-This plugin is in heavy development and might have bugs.
 
 <h2 align="center">Servers Using Player Logger</h2>
 
