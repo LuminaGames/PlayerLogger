@@ -21,7 +21,7 @@ public class GetChatLogsCommand extends SubCommand {
 
     @Override
     public String getSyntax() {
-        return "&6/playerlogger getchatlogs <Player> <Amount>&c**";
+        return "&6/plogger getchatlogs <Player> <Amount>&c**";
     }
 
     @Override

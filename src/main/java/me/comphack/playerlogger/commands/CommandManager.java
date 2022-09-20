@@ -1,9 +1,6 @@
 package me.comphack.playerlogger.commands;
 
-import me.comphack.playerlogger.commands.subcommands.GetChatLogsCommand;
-import me.comphack.playerlogger.commands.subcommands.GetFirstJoinLocCommand;
-import me.comphack.playerlogger.commands.subcommands.GetLogOutLocCommand;
-import me.comphack.playerlogger.commands.subcommands.GetLogsCommand;
+import me.comphack.playerlogger.commands.subcommands.*;
 import me.comphack.playerlogger.utils.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -22,6 +19,8 @@ public class CommandManager implements CommandExecutor {
         subcommands.add(new GetChatLogsCommand());
         subcommands.add(new GetLogOutLocCommand());
         subcommands.add(new GetFirstJoinLocCommand());
+        subcommands.add(new ReloadCommand());
+
     }
 
     @Override

@@ -24,7 +24,7 @@ public class GetLogOutLocCommand extends SubCommand {
 
     @Override
     public String getSyntax() {
-        return "&6/playerlogger lastlogoutlocation <Player>";
+        return "&6/plogger lastlogoutlocation <Player>";
     }
 
     @Override

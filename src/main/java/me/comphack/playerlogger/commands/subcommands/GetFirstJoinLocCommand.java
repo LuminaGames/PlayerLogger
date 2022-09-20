@@ -24,7 +24,7 @@ public class GetFirstJoinLocCommand extends SubCommand {
 
     @Override
     public String getSyntax() {
-        return "&6/playerlogger firstjoinlocation <Player>";
+        return "&6/plogger firstjoinlocation <Player>";
     }
 
     @Override

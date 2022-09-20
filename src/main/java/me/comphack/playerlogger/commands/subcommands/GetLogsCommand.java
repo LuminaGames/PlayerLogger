@@ -25,7 +25,7 @@ public class GetLogsCommand extends SubCommand {
 
     @Override
     public String getSyntax() {
-        return "&6/playerlogger getlogs <Player>";
+        return "&6/plogger getlogs <Player>";
     }
 
     @Override

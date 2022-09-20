@@ -20,19 +20,24 @@ public class PlayerLogger extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+        // Load Plugin Configs
         getConfig().options().copyDefaults(true);
         saveConfig();
         getLogger().info("Loaded Configurations");
+        // Setup Database
         dbmanager.setupJDBC();
         dbmanager.PluginDatabase();
         getLogger().info("Loaded Database!");
+        //Register Events and Commands
         initializeEvents();
         getCommand("playerlogger").setExecutor(new CommandManager());
         getLogger().info("Loaded Events & Commands");
         onEnableText();
         int pluginId = 16130;
+        // Hook Into bStats
         Metrics metrics = new Metrics(this, pluginId);
         getLogger().info("Checking for Updates...");
+        // Check for Updates
         if(getConfig().getBoolean("general.check-updates")) {
             UpdateChecker.init(this, 103033).requestUpdateCheck().whenComplete((result, exception) -> {
                 if (result.requiresUpdate()) {
@@ -60,6 +65,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         getLogger().info("                 " + getServer().getPluginManager().getPlugin("PlayerLogger").getDescription().getVersion());
         getLogger().info("                                                  ");
         getLogger().info("           Developed by COMPHACK                  ");
+        getLogger().info("         Running on " + getServer().getVersion());
         getLogger().info("                                                  ");
         getLogger().info("--------------------------------------------------");
 
@@ -78,8 +84,10 @@ public class PlayerLogger extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        getLogger().info("PlayerLogger v1.0 has successfully shut down");
+        getLogger().info("PlayerLogger has successfully shut down");
+        getLogger().info("Plugin Version:" + getServer().getPluginManager().getPlugin("PlayerLogger").getDescription().getVersion());
         getLogger().info("Thank You For using my plugin.");
+        dbmanager.closeConnection();
 
     }
 }

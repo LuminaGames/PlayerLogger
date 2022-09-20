@@ -8,3 +8,7 @@ description: A simple plugins that logs information about your players on the se
 commands:
     playerlogger:
         description: Basic Plugin Command for PlayerLogger
+        aliases:
+        - plogger
+        - plogs
+        - plog

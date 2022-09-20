@@ -81,11 +81,25 @@ public class DatabaseManager {
         }
     }
 
+    public boolean isDebugMode() {
+        if(utils.getPluginConfig().getConfig().getBoolean("general.debug-mode")) {
+            return true;
+        }
+        return false;
+    }
+
+    public void sendDebugLog(String s) {
+        Bukkit.getServer().getPluginManager().getPlugin("PlayerLogger").getLogger().info(s);
+    }
+
     public String getIP(String player) throws SQLException {
         String SQL = "SELECT * FROM player_logs WHERE username = '" + player + "'";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(SQL);
         String IPAddr = null;
+        if(isDebugMode()){
+            sendDebugLog("Requested an getIP request to database for " + player);
+        }
         while (resultSet.next()) {
             IPAddr = resultSet.getString("ip_address");
         }
@@ -97,7 +111,9 @@ public class DatabaseManager {
         String SQL = "SELECT * FROM player_logs WHERE username = '" + player + "'";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(SQL);
-        String JoinDate = null;
+        if(isDebugMode()){
+            sendDebugLog("Requested an getLastJoinDate request to database for " + player);
+        }        String JoinDate = null;
         while (resultSet.next()) {
             JoinDate = resultSet.getString("last_join_date");
         }
@@ -109,7 +125,9 @@ public class DatabaseManager {
         String SQL = "SELECT * FROM player_logs WHERE username = '" + player + "'";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(SQL);
-        String logout_x = "No Data";
+        if(isDebugMode()) {
+            sendDebugLog("Requested an getLogOutLocation request to database for " + player);
+        }        String logout_x = "No Data";
         String logout_y = "No Data";
         String logout_z = "No Data";
         String logout_world = "No Data";
@@ -127,7 +145,9 @@ public class DatabaseManager {
         String SQL = "SELECT * FROM player_logs WHERE username = '" + player + "'";
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(SQL);
-        String firstjoin_x = "No Data";
+        if(isDebugMode()) {
+            sendDebugLog("Requested an firstJoinInfo request to database for " + player);
+        }        String firstjoin_x = "No Data";
         String firstjoin_y = "No Data";
         String firstjoin_z = "No Data";
         String firstjoin_world = "No Data";
@@ -144,7 +164,10 @@ public class DatabaseManager {
         String SQL = "INSERT OR IGNORE INTO player_logs" +
                 "(username, uuid, ip_address, last_join_date)" +
                 "VALUES ('" + player + "', '" + uuid + "', '" + address + "', '" + lastjoin + "');";
-                //"ON DUPLICATE KEY UPDATE ip_address = " + address + "," + "last_join_date = " + lastjoin + ";";
+        if(isDebugMode()){
+            sendDebugLog("Set Join Stats for " + player);
+        }
+        //"ON DUPLICATE KEY UPDATE ip_address = " + address + "," + "last_join_date = " + lastjoin + ";";
                 String UpdateSQL = "UPDATE player_logs SET ip_address = '" + address + "', " + "last_join_date = '" + lastjoin + "' WHERE username = '" + player + "';";
                 connection.createStatement().execute(SQL);
                 connection.createStatement().execute(UpdateSQL);
@@ -155,6 +178,9 @@ public class DatabaseManager {
         String SQL = "UPDATE player_logs SET firstjoin_world = '" + world + "', firstjoin_x = '" + x + "'," +
                 " firstjoin_y = '" + y + "', firstjoin_z = '" + z + "' WHERE username = '" + player + "';";
         connection.createStatement().execute(SQL);
+        if(isDebugMode()){
+            sendDebugLog("Set First Join Information Stats for " + player);
+        }
 
     }
 
@@ -162,12 +188,15 @@ public class DatabaseManager {
         String SQL = "UPDATE player_logs SET logout_world = '" + world + "', logout_x = '" + x + "'," +
                 " logout_y = '" + y + "', logout_z = '" + z + "' WHERE username = '" + player + "';";
         connection.createStatement().execute(SQL);
-
+        if(isDebugMode()){
+            sendDebugLog("Set Log out Location info for " + player);
+        }
     }
 
     public void addChatLogs(String player, String message ,String dateTime) throws SQLException {
         String SQL = "INSERT INTO chat_logs (username, message, date_and_time) VALUES ('" + player + "', '" + message + "', '" + dateTime + "');";
         connection.createStatement().execute(SQL);
+
     }
 
     public String getChatLogs(String player, int limit) throws SQLException {
@@ -186,6 +215,16 @@ public class DatabaseManager {
 
     public Connection getConnection() {
         return connection;
+    }
+
+    public void closeConnection() {
+        try {
+            connection.close();
+            sendDebugLog("Closing Database Connections.");
+        } catch (SQLException e) {
+            sendDebugLog("There was a error in disabling Database Connection");
+            e.printStackTrace();
+        }
     }
 
 

@@ -7,6 +7,8 @@ database:
     port: '3306'
 
 general:
+    #Use this only if you want to log every action that the plugin performs in the console
+    debug-mode: false
     check-updates: true
 
 messages:
