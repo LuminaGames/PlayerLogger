@@ -27,8 +27,10 @@ public class ReloadCommand extends SubCommand {
 
     @Override
     public void perform(Player player, String[] args) {
-        utils.getPluginConfig().reloadConfig();
-        utils.getPluginConfig().saveConfig();
-        player.sendMessage(utils.chatcolor("&aConfiguration has bee successfully reloaded"));
+        if(player.hasPermission("playerlogger.command.reload") || player.hasPermission("playerlogger.command.*")){
+            utils.getPluginConfig().reloadConfig();
+            utils.getPluginConfig().saveConfig();
+            player.sendMessage(utils.chatcolor("&aConfiguration has bee successfully reloaded"));
+        }
     }
 }
