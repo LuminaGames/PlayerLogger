@@ -14,6 +14,8 @@ An plugin that logs information about your players on joining the server.
 
 Report any bugs or errors in the plugin here.
 
+## Third Party Libraries
+* [bStats](https://bstats.org)
 
 <h2 align="center">Servers Using Player Logger</h2>
 
@@ -23,3 +25,4 @@ Report any bugs or errors in the plugin here.
 © 2022 COMPHACK (Vedant) 
 
 OpenSource Under [MIT License](https://github.com/COMP-HACK/PlayerLogger/blob/main/LICENSE.md) 
+
