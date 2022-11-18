@@ -24,5 +24,7 @@ Report any bugs or errors in the plugin here.
 
 © 2022 COMPHACK (Vedant) 
 
+<p align=center>Email Linker is a product of <a href="https://discord.neptunedevelopment.ml/">Neptune Development</a></p>
+
 OpenSource Under [MIT License](https://github.com/COMP-HACK/PlayerLogger/blob/main/LICENSE.md) 
 
