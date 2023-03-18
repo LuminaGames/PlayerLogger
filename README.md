@@ -22,9 +22,7 @@ Report any bugs or errors in the plugin here.
 # ![bStats](https://bstats.org/signatures/bukkit/Player%20Logger.svg)
 # [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V3E5ZSM)
 
-© 2022 COMPHACK (Vedant) 
+<p align=center>OpenSource Under <a href="https://github.com/COMP-HACK/PlayerLogger/blob/main/LICENSE.md"> MIT License</a> </p>
+<p align=center>© 2023 <a href="https://discord.neptunedevelopment.ml/">Neptune Development</a></p>
 
-<p align=center>Email Linker is a product of <a href="https://discord.neptunedevelopment.ml/">Neptune Development</a></p>
-
-OpenSource Under [MIT License](https://github.com/COMP-HACK/PlayerLogger/blob/main/LICENSE.md) 
 
