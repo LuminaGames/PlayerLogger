@@ -161,7 +161,7 @@ public class DatabaseManager {
     }
 
     public void setJoinStats(String player, InetSocketAddress address, UUID uuid, LocalDate lastjoin) throws SQLException {
-        String SQL = "INSERT IGNORE INTO player_logs" +
+        String SQL = "INSERT OR IGNORE INTO player_logs" +
                 "(username, uuid, ip_address, last_join_date)" +
                 "VALUES ('" + player + "', '" + uuid + "', '" + address + "', '" + lastjoin + "');";
         if(isDebugMode()){
