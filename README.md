@@ -23,6 +23,6 @@ Report any bugs or errors in the plugin here.
 # [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/V7V3E5ZSM)
 
 <p align=center>OpenSource Under <a href="https://github.com/COMP-HACK/PlayerLogger/blob/main/LICENSE.md"> MIT License</a> </p>
-<p align=center>© 2023 <a href="https://discord.neptunedevelopment.ml/">Neptune Development</a></p>
+<p align=center>© 2023 Neptune Development</p>
 
 
