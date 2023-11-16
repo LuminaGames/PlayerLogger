@@ -19,7 +19,7 @@ public class GetFirstJoinLocCommand extends SubCommand {
 
     @Override
     public String getDescription() {
-        return "&6Get the first joining location of the player in the server";
+        return "Get the first joining location of the player in the server";
     }
 
     @Override
@@ -38,9 +38,7 @@ public class GetFirstJoinLocCommand extends SubCommand {
                 player.sendMessage(utils.chatcolor("&6X, Y ,Z , World: &f" + location));
             }
         } else {
-            player.sendMessage(utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.no-permission")
-                    .replace("{prefix}", utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.prefix"
-                    )))));
+            player.sendMessage(utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.no-permission")));
         }
     }
 }

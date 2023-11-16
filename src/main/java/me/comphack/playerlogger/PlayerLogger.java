@@ -35,7 +35,9 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         onEnableText();
         int pluginId = 16130;
         // Hook Into bStats
-        Metrics metrics = new Metrics(this, pluginId);
+        if(getConfig().getBoolean("general.use-bstats")) {
+            Metrics metrics = new Metrics(this, pluginId);
+        }
         getLogger().info("Checking for Updates...");
         // Check for Updates
         if(getConfig().getBoolean("general.check-updates")) {
@@ -78,9 +80,6 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(new ChatEvent(), this);
 
     }
-
-
-
 
     @Override
     public void onDisable() {

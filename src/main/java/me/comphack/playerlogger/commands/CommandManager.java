@@ -42,14 +42,12 @@ public class CommandManager implements CommandExecutor {
                 p.sendMessage(utils.chatcolor("&6&lPlugin Version: &f" + utils.getPluginVersion()));
                 p.sendMessage("");
                 for (int i = 0; i < getSubcommands().size(); i++) {
-                    p.sendMessage(utils.chatcolor(getSubcommands().get(i).getSyntax()) + " &f- " + utils.chatcolor(getSubcommands().get(i).getDescription()));
+                    p.sendMessage(utils.chatcolor((getSubcommands().get(i).getSyntax() + " &f- " + getSubcommands().get(i).getDescription())));
                 }
                 p.sendMessage("");
             }
         } else {
-            sender.sendMessage(utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.playeronly-command")
-                    .replace("{prefix}", utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.prefix"
-                    )))));
+            sender.sendMessage(utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.playeronly-command")));
         }
 
         return true;

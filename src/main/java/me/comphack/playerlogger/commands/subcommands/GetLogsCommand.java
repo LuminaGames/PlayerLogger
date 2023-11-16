@@ -20,7 +20,7 @@ public class GetLogsCommand extends SubCommand {
 
     @Override
     public String getDescription() {
-        return "&6Gets logs from the database for a user";
+        return "Gets logs from the database for a user";
     }
 
     @Override
@@ -44,9 +44,7 @@ public class GetLogsCommand extends SubCommand {
                     player.sendMessage(utils.chatcolor("&6-----------------------------------------------------"));
                 }
             } else {
-                player.sendMessage(utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.no-permission")
-                        .replace("{prefix}", utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.prefix"
-                        )))));
+                player.sendMessage(utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.no-permission")));
             }
 
         }else if(args.length == 1){
