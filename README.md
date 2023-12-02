@@ -1,6 +1,8 @@
 # PlayerLogger
 An plugin that logs information about your players on joining the server.
 
+Note: The plugin is currently being recoded by me.
+
 * IP Address Logging
 * UUID Logging
 * First Joining Location Logging
