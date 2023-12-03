@@ -20,6 +20,7 @@ public class CommandManager implements CommandExecutor {
         subcommands.add(new GetLogOutLocCommand());
         subcommands.add(new GetFirstJoinLocCommand());
         subcommands.add(new ReloadCommand());
+        subcommands.add(new GetCommandLogs());
 
     }
 
@@ -38,18 +39,17 @@ public class CommandManager implements CommandExecutor {
                     }
                 }
             } else if (args.length == 0) {
-                p.sendMessage(utils.chatcolor("&6&lPlayerLogger &7developed by &6&lCOMPHACK"));
-                p.sendMessage(utils.chatcolor("&6&lPlugin Version: &f" + utils.getPluginVersion()));
+                p.sendMessage(utils.chatcolor("&6&lPlayerLogger &7[&fv"+ utils.getPluginVersion() +"&7] developed by &6&lCOMPHACK"));
+                p.sendMessage(utils.chatcolor("&fA product of &b&lNeptune Development"));
+                p.sendMessage(utils.chatcolor("&fSupport Discord &bhttps://discord.gg/e97HsSX89j"));
                 p.sendMessage("");
                 for (int i = 0; i < getSubcommands().size(); i++) {
-                    p.sendMessage(utils.chatcolor(getSubcommands().get(i).getSyntax()) + " &f- " + utils.chatcolor(getSubcommands().get(i).getDescription()));
+                    p.sendMessage(utils.chatcolor((getSubcommands().get(i).getSyntax() + " &f- " + getSubcommands().get(i).getDescription())));
                 }
                 p.sendMessage("");
             }
         } else {
-            sender.sendMessage(utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.playeronly-command")
-                    .replace("{prefix}", utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.prefix"
-                    )))));
+            sender.sendMessage(utils.chatcolor(utils.getPluginConfig().getConfig().getString("messages.playeronly-command")));
         }
 
         return true;

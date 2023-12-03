@@ -19,7 +19,7 @@ public class GetLogOutLocCommand extends SubCommand {
 
     @Override
     public String getDescription() {
-        return "&6Get last log out location of the player on the server";
+        return "Get last log out location of the player on the server";
     }
 
     @Override

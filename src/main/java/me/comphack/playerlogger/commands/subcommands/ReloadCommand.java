@@ -30,7 +30,7 @@ public class ReloadCommand extends SubCommand {
         if(player.hasPermission("playerlogger.command.reload") || player.hasPermission("playerlogger.command.*")){
             utils.getPluginConfig().reloadConfig();
             utils.getPluginConfig().saveConfig();
-            player.sendMessage(utils.chatcolor("&aConfiguration has bee successfully reloaded"));
+            player.sendMessage(utils.chatcolor("{prefix}&aConfiguration has been successfully reloaded"));
         }
     }
 }

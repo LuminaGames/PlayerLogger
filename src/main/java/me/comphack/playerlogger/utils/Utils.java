@@ -15,18 +15,8 @@ public class Utils {
     }
 
     public String chatcolor(String s) {
-        if (s == null) return "";
-        return ChatColor.translateAlternateColorCodes('&', s);
-    }
-
-    public String DatabaseType() {
-        String sql;
-        if(getPluginConfig().getConfig().getBoolean("database.enabled")) {
-            sql = "MySQL";
-        } else {
-            sql = "SQLite";
-        }
-        return sql;
+        return ChatColor.translateAlternateColorCodes('&', s)
+                .replace("{prefix}", ChatColor.translateAlternateColorCodes('&', getPluginConfig().getConfig().getString("messages.prefix")));
     }
 
     public String getPluginVersion() {

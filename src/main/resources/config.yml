@@ -10,6 +10,7 @@ general:
     #Use this only if you want to log every action that the plugin performs in the console
     debug-mode: false
     check-updates: true
+    use-bstats: true
 
 messages:
     prefix: "&7[&6PlayerLogger&7] "
