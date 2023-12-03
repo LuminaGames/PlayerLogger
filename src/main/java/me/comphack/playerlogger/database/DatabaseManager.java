@@ -1,5 +1,6 @@
 package me.comphack.playerlogger.database;
 
+import me.comphack.playerlogger.utils.PlayerChat;
 import me.comphack.playerlogger.utils.Utils;
 import org.bukkit.Bukkit;
 
@@ -7,8 +8,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.UUID;
+import java.util.*;
+import java.util.Date;
 
 public class DatabaseManager {
 
@@ -199,10 +203,10 @@ public class DatabaseManager {
             insertStatement.setString(1, player);
             insertStatement.setString(2, uuid.toString());
             insertStatement.setString(3, address.toString());
-            insertStatement.setDate(4, Date.valueOf(lastjoin));
+            insertStatement.setDate(4, java.sql.Date.valueOf(lastjoin));
 
             updateStatement.setString(1, address.toString());
-            updateStatement.setDate(2, Date.valueOf(lastjoin));
+            updateStatement.setDate(2, java.sql.Date.valueOf(lastjoin));
             updateStatement.setString(3, player);
 
             if (isDebugMode()) {
@@ -257,23 +261,120 @@ public class DatabaseManager {
 
 
     public void addChatLogs(String player, String message ,String dateTime) throws SQLException {
-        String SQL = "INSERT INTO chat_logs (username, message, date_and_time) VALUES ('" + player + "', '" + message + "', '" + dateTime + "');";
-        connection.createStatement().execute(SQL);
+        String SQL = "INSERT INTO chat_logs (username, message, date_and_time) VALUES (?, ?, ?);";
+        try(PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setString(1, player);
+            ps.setString(2, message);
+            ps.setString(3, dateTime);
+            ps.execute();
+        }
 
     }
 
-    public String getChatLogs(String player, int limit) throws SQLException {
-        String SQL = "SELECT * FROM chat_logs WHERE username = '" + player + "' LIMIT " + limit + ";";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(SQL);
-        String ChatData = "No Data!";
-        while(resultSet.next()) {
-            for(int i = 1; i < limit; i++)
-                ChatData = resultSet.getString(i);
-
+    public void addCommandLogs(String player, String command ,String dateTime) throws SQLException {
+        String SQL = "INSERT INTO command_logs (username, command, date_and_time) VALUES (?, ?, ?);";
+        try(PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setString(1, player);
+            ps.setString(2, command);
+            ps.setString(3, dateTime);
+            ps.execute();
         }
-        return ChatData;
 
+    }
+
+
+    public List<PlayerChat> getCommandLogs(String player, int limit, String... sort) {
+        String SQL = null;
+        List<PlayerChat> chatLogs = new ArrayList<>();
+        if (sort[0] == null) {
+            sort[0] = "NEW";
+        }
+
+        switch (sort[0]) {
+            case "OLD":
+                SQL = "SELECT * FROM command_logs WHERE username = ? ORDER BY date_and_time ASC LIMIT ?";
+                break;
+            case "NEW":
+                SQL = "SELECT * FROM command_logs WHERE username = ? ORDER BY date_and_time DESC LIMIT ?";
+                break;
+        }
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, player);
+            ps.setInt(2, limit);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                String message = resultSet.getString("command");
+                String dateTimeStr = resultSet.getString("date_and_time");
+
+                // Convert the date string to a standardized format
+                SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                try {
+                    Date date = inputFormat.parse(dateTimeStr);
+                    String standardizedDateTime = outputFormat.format(date);
+
+                    String username = resultSet.getString("username");
+                    PlayerChat chat = new PlayerChat(message, username, standardizedDateTime);
+                    chatLogs.add(chat);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chatLogs;
+    }
+
+    public List<PlayerChat> getChatLogs(String player, int limit, String... sort) {
+        String SQL = null;
+        List<PlayerChat> chatLogs = new ArrayList<>();
+        if (sort[0] == null) {
+            sort[0] = "NEW";
+        }
+
+        switch (sort[0]) {
+            case "OLD":
+                SQL = "SELECT * FROM chat_logs WHERE username = ? ORDER BY date_and_time ASC LIMIT ?";
+                break;
+            case "NEW":
+                SQL = "SELECT * FROM chat_logs WHERE username = ? ORDER BY date_and_time DESC LIMIT ?";
+                break;
+        }
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(SQL);
+            ps.setString(1, player);
+            ps.setInt(2, limit);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                String message = resultSet.getString("message");
+                String dateTimeStr = resultSet.getString("date_and_time");
+
+                // Convert the date string to a standardized format
+                SimpleDateFormat inputFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+                SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                try {
+                    Date date = inputFormat.parse(dateTimeStr);
+                    String standardizedDateTime = outputFormat.format(date);
+
+                    String username = resultSet.getString("username");
+                    PlayerChat chat = new PlayerChat(message, username, standardizedDateTime);
+                    chatLogs.add(chat);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chatLogs;
     }
 
     public Connection getConnection() {

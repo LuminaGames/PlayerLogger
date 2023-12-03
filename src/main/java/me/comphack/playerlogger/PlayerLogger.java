@@ -4,6 +4,7 @@ import me.comphack.playerlogger.commands.CommandManager;
 import me.comphack.playerlogger.database.DatabaseManager;
 
 import me.comphack.playerlogger.events.ChatEvent;
+import me.comphack.playerlogger.events.CommandSendEvent;
 import me.comphack.playerlogger.events.JoinEvent;
 import me.comphack.playerlogger.events.LeaveEvent;
 import me.comphack.playerlogger.utils.Metrics;
@@ -78,6 +79,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new LeaveEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new ChatEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new CommandSendEvent(), this);
 
     }
 

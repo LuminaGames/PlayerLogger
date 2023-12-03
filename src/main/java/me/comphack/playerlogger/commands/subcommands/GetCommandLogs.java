@@ -6,32 +6,31 @@ import me.comphack.playerlogger.utils.PlayerChat;
 import me.comphack.playerlogger.utils.Utils;
 import org.bukkit.entity.Player;
 
+import java.sql.SQLException;
 import java.util.List;
 
+public class GetCommandLogs extends SubCommand {
 
-public class GetChatLogsCommand extends SubCommand {
-    private Utils utils = new Utils();
-
-
+    Utils utils = new Utils();
     @Override
     public String getName() {
-        return "getchatlogs";
+        return "getcommandlogs";
     }
 
     @Override
     public String getDescription() {
-        return "Get the last n number chat logs of a user from the database";
+        return "Get the last n number command logs of a user from the database";
     }
 
     @Override
     public String getSyntax() {
-        return "&6/plogger getchatlogs <player> [newest|oldest] <limit>";
+        return "&6/plogger getcommandlogs <player> [newest|oldest] <limit>";
     }
 
     @Override
-    public void perform(Player player, String[] args) {
+    public void perform(Player player, String[] args) throws SQLException {
         DatabaseManager db = new DatabaseManager();
-        if(player.hasPermission("playerlogger.command.getchatlogs") || player.hasPermission("playerlogger.command.*")){
+        if(player.hasPermission("playerlogger.command.getcommandlogs") || player.hasPermission("playerlogger.command.*")){
             if(args.length <= 3) {
                 player.sendMessage(utils.chatcolor("{prefix} &7Not enough arguments provided"));
                 return;
@@ -40,13 +39,15 @@ public class GetChatLogsCommand extends SubCommand {
             String username = args[1];
             String sort = args[2];
 
-            player.sendMessage(utils.chatcolor("{prefix} &fShowing message history for &6" + username));
+
+
+            player.sendMessage(utils.chatcolor("{prefix} &fShowing command history for &6" + username));
             List<PlayerChat> chatLogs;
             if(sort.equalsIgnoreCase("newest")) {
-                chatLogs = db.getChatLogs(username, limit, "NEW");
+                chatLogs = db.getCommandLogs(username, limit, "NEW");
                 player.sendMessage(utils.chatcolor("{prefix} &fSorting &6newest to oldest"));
             } else {
-                chatLogs = db.getChatLogs(username, limit, "OLD");
+                chatLogs = db.getCommandLogs(username, limit, "OLD");
                 player.sendMessage(utils.chatcolor("{prefix} &fSorting &6oldest to newest"));
             }
             if(chatLogs.isEmpty()) {
