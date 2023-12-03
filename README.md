@@ -1,18 +1,4 @@
-# PlayerLogger
-An plugin that logs information about your players on joining the server.
-
-Note: The plugin is currently being recoded by me.
-
-* IP Address Logging
-* UUID Logging
-* First Joining Location Logging
-* Log Out Location Logging
-
-## Upcoming Features
-* Chat Logging System
-* Command Logging System
-* Bungeecord/Proxy Server Support
-
+[![imageban](https://i6.imageban.ru/out/2023/12/03/069a20992e75b4ddb2ee176f1b640cf9.png)]()
 
 Report any bugs or errors in the plugin here.
 
