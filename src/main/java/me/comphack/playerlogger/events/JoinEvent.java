@@ -1,6 +1,8 @@
 package me.comphack.playerlogger.events;
 
+import me.comphack.playerlogger.PlayerLogger;
 import me.comphack.playerlogger.database.DatabaseManager;
+import me.comphack.playerlogger.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
@@ -33,6 +35,10 @@ public class JoinEvent implements Listener {
         if(e.getPlayer().hasPlayedBefore()) {
         } else {
             database.setFirstJoinInfo(username, x, y, z, world);
+        }
+
+        if(e.getPlayer().hasPermission("playerlogger.command") && PlayerLogger.isUpdateAvailable()) {
+            e.getPlayer().sendMessage("An update of player logger is available. You can download it from spigot mc");
         }
     }
 }

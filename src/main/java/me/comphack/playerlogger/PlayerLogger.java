@@ -18,6 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PlayerLogger extends JavaPlugin implements Listener {
     private CommandManager cmd;
     private DatabaseManager dbmanager = new DatabaseManager();
+    static boolean updateAvailable = false;
 
     @Override
     public void onEnable() {
@@ -44,6 +45,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         if(getConfig().getBoolean("general.check-updates")) {
             UpdateChecker.init(this, 103033).requestUpdateCheck().whenComplete((result, exception) -> {
                 if (result.requiresUpdate()) {
+                    updateAvailable = true;
                     this.getLogger().info(String.format("An update is available! PlayerLogger %s may be downloaded on SpigotMC", result.getNewestVersion()));
                     return;
                 }
@@ -90,5 +92,9 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         getLogger().info("Thank You For using my plugin.");
         dbmanager.closeConnection();
 
+    }
+
+    public static boolean isUpdateAvailable() {
+        return updateAvailable;
     }
 }
