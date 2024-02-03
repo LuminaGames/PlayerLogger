@@ -56,7 +56,7 @@ public enum Message {
 
         if (!message.isEmpty()) {
             try  {
-                Class.forName(me.clip.placeholderapi.PlaceholderAPI;
+                Class.forName("me.clip.placeholderapi.PlaceholderAPI");
                 receiver.sendMessage(PlaceholderAPI.setPlaceholders(receiver, Utils.cc(replace(message, replacements))));
             } catch (ClassNotFoundException e) {
                 receiver.sendMessage(Utils.cc(replace(message, replacements)));
