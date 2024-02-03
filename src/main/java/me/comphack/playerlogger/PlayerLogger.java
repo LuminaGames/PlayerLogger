@@ -1,12 +1,15 @@
 package me.comphack.playerlogger;
 
-import me.comphack.playerlogger.commands.CommandManager;
+import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommand;
+import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommandManager;
+import me.comphack.playerlogger.commands.*;
 import me.comphack.playerlogger.database.DatabaseManager;
 
 import me.comphack.playerlogger.events.ChatEvent;
 import me.comphack.playerlogger.events.CommandSendEvent;
 import me.comphack.playerlogger.events.JoinEvent;
 import me.comphack.playerlogger.events.LeaveEvent;
+import me.comphack.playerlogger.utils.Message;
 import me.comphack.playerlogger.utils.Metrics;
 import me.comphack.playerlogger.utils.UpdateChecker;
 import org.bukkit.Bukkit;
@@ -16,23 +19,26 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class PlayerLogger extends JavaPlugin implements Listener {
-    private CommandManager cmd;
     private DatabaseManager dbmanager = new DatabaseManager();
     static boolean updateAvailable = false;
+    private SubCommandManager commandManager;
 
     @Override
     public void onEnable() {
         // Load Plugin Configs
+        commandManager = new SubCommandManager();
         getConfig().options().copyDefaults(true);
         saveConfig();
         getLogger().info("Loaded Configurations");
+        Message.setConfiguration(getConfig());
         // Setup Database
         dbmanager.setupJDBC();
         dbmanager.PluginDatabase();
         getLogger().info("Loaded Database!");
         //Register Events and Commands
         initializeEvents();
-        getCommand("playerlogger").setExecutor(new CommandManager());
+        getCommand("playerlogger").setExecutor(commandManager);
+        initializeCommands();
         getLogger().info("Loaded Events & Commands");
         onEnableText();
         int pluginId = 16130;
@@ -61,6 +67,10 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         } else {
             Bukkit.getLogger().info("Update Checking is disabled. You can enable it back through the config file.");
         }
+
+        SubCommandManager.setPlayerOnlyCommandMessage(Message.PLAYER_ONLY_COMMAND.asString());
+        SubCommandManager.setNoPermissionMessage(Message.NO_PERMISSION.asString());
+        SubCommandManager.setUnknownCommandMessage(Message.UNKNOWN_COMMAND.asString());
     }
 
     public void onEnableText() {
@@ -77,6 +87,15 @@ public class PlayerLogger extends JavaPlugin implements Listener {
 
     }
 
+    public void initializeCommands() {
+        commandManager.registerCommand("getlogs", new PlayerLogsCommand(this));
+        commandManager.registerCommand("getchatlogs", new GetChatLogsCommand(this));
+        commandManager.registerCommand("getcommandlogs", new GetCommandLogs(this));
+        commandManager.registerCommand("firstjoinlocation", new GetFirstJoinLocationCommand(this));
+        commandManager.registerCommand("lastlogoutlocation", new GetLogoutLocationCommand(this));
+        commandManager.registerCommand("reload", new ReloadCommand(this));
+        commandManager.registerCommand("help", new HelpCommand());
+    }
     public void initializeEvents() {
         Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
         Bukkit.getServer().getPluginManager().registerEvents(new LeaveEvent(), this);
@@ -96,5 +115,9 @@ public class PlayerLogger extends JavaPlugin implements Listener {
 
     public static boolean isUpdateAvailable() {
         return updateAvailable;
+    }
+
+    public DatabaseManager getDatabase() {
+        return dbmanager;
     }
 }

@@ -8,13 +8,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Utils {
 
 
-    public PlayerLogger getPluginConfig() {
+    public static PlayerLogger getPluginConfig() {
         PlayerLogger playerLogger = JavaPlugin.getPlugin(PlayerLogger.class);
         return playerLogger;
 
     }
 
-    public String chatcolor(String s) {
+    public static String cc(String s) {
         return ChatColor.translateAlternateColorCodes('&', s)
                 .replace("{prefix}", ChatColor.translateAlternateColorCodes('&', getPluginConfig().getConfig().getString("messages.prefix")));
     }

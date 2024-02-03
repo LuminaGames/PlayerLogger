@@ -96,7 +96,7 @@ public class DatabaseManager {
         Bukkit.getServer().getPluginManager().getPlugin("PlayerLogger").getLogger().info(s);
     }
 
-    public String getIP(String player) throws SQLException {
+    public String getIP(String player) {
         String SQL = "SELECT * FROM player_logs WHERE username = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
@@ -112,11 +112,14 @@ public class DatabaseManager {
                 IPAddr = resultSet.getString("ip_address");
             }
             return IPAddr;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
 
-    public String getLastJoinDate(String player) throws SQLException {
+    public String getLastJoinDate(String player) {
         String SQL = "SELECT * FROM player_logs WHERE username = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
@@ -134,11 +137,15 @@ public class DatabaseManager {
             }
 
             return joinDate;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
+        return null;
     }
 
 
-    public String getLogoutLocation(String player) throws SQLException {
+    public String getLogoutLocation(String player) {
         String SQL = "SELECT * FROM player_logs WHERE username = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
@@ -162,11 +169,14 @@ public class DatabaseManager {
             }
 
             return logout_x + ", " + logout_y + ", " + logout_z + ", " + logout_world;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
 
-    public String getFirstJoinInfo(String player) throws SQLException {
+    public String getFirstJoinInfo(String player) {
         String SQL = "SELECT * FROM player_logs WHERE username = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
@@ -190,10 +200,13 @@ public class DatabaseManager {
             }
 
             return firstjoin_x + ", " + firstjoin_y + ", " + firstjoin_z + ", " + firstjoin_world;
+        }  catch (SQLException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
-    public void setJoinStats(String player, InetSocketAddress address, UUID uuid, LocalDate lastjoin) throws SQLException {
+    public void setJoinStats(String player, InetSocketAddress address, UUID uuid, LocalDate lastjoin) {
         String insertSQL = "INSERT INTO player_logs (username, uuid, ip_address, last_join_date) VALUES (?, ?, ?, ?)";
         String updateSQL = "UPDATE player_logs SET ip_address = ?, last_join_date = ? WHERE username = ?";
 
@@ -217,13 +230,20 @@ public class DatabaseManager {
             try {
                 insertStatement.execute();
             } catch (SQLException e) {
-                updateStatement.execute();
+                try {
+                    updateStatement.execute();
+                }  catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
             }
+        }   catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
 
-    public void setFirstJoinInfo(String player, Double x, Double y, Double z, String world) throws SQLException {
+    public void setFirstJoinInfo(String player, Double x, Double y, Double z, String world) {
         String SQL = "UPDATE player_logs SET firstjoin_world = ?, firstjoin_x = ?, firstjoin_y = ?, firstjoin_z = ? WHERE username = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
@@ -238,10 +258,12 @@ public class DatabaseManager {
             if (isDebugMode()) {
                 sendDebugLog("Set First Join Information Stats for " + player);
             }
+        }   catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void setLogOutInfo(String player, Double x, Double y, Double z, String world) throws SQLException {
+    public void setLogOutInfo(String player, Double x, Double y, Double z, String world) {
         String SQL = "UPDATE player_logs SET logout_world = ?, logout_x = ?, logout_y = ?, logout_z = ? WHERE username = ?";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(SQL)) {
@@ -256,28 +278,35 @@ public class DatabaseManager {
             if (isDebugMode()) {
                 sendDebugLog("Set Log out Location info for " + player);
             }
+
+        }  catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
 
-    public void addChatLogs(String player, String message ,String dateTime) throws SQLException {
+    public void addChatLogs(String player, String message ,String dateTime) {
         String SQL = "INSERT INTO chat_logs (username, message, date_and_time) VALUES (?, ?, ?);";
         try(PreparedStatement ps = connection.prepareStatement(SQL)) {
             ps.setString(1, player);
             ps.setString(2, message);
             ps.setString(3, dateTime);
             ps.execute();
+        }   catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }
 
-    public void addCommandLogs(String player, String command ,String dateTime) throws SQLException {
+    public void addCommandLogs(String player, String command ,String dateTime) {
         String SQL = "INSERT INTO command_logs (username, command, date_and_time) VALUES (?, ?, ?);";
         try(PreparedStatement ps = connection.prepareStatement(SQL)) {
             ps.setString(1, player);
             ps.setString(2, command);
             ps.setString(3, dateTime);
             ps.execute();
+        }   catch (SQLException e) {
+            e.printStackTrace();
         }
 
     }
