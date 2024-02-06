@@ -5,11 +5,8 @@ An plugin that logs information about your players on joining the server.
 * UUID Logging
 * First Joining Location Logging
 * Log Out Location Logging
-
-## Upcoming Features
 * Chat Logging System
 * Command Logging System
-* Bungeecord/Proxy Server Support
 
 
 Report any bugs or errors in the plugin here.
