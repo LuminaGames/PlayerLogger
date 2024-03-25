@@ -1,0 +1,30 @@
+database:
+    enabled: false
+    host: ''
+    database: ''
+    username: ''
+    password: ''
+    port: '3306'
+
+general:
+    #Use this only if you want to log every action that the plugin performs in the console
+    debug-mode: false
+    check-updates: true
+    use-bstats: true
+
+messages:
+    prefix: "&7[&6PlayerLogger&7] "
+    unknown-command: "{prefix}Unknown Command. Please type &6/playerlogger help"
+    playeronly-command: "{prefix}&cThis command can only be executed by a player."
+    no-permission: "{prefix}&cYou do not have permission to execute this command."
+    get-logs:
+    - "&6Showing logs for &f{player}"
+    - "&6First joining date: &f{first_join}"
+    - "&6Last joining date: &f{last_join}"
+    - "&6IP Address: &f{ip_address}"
+    - "&6Log out: &f{logout}"
+    help-message:
+    - '&6&lPlayer Logger &fplugin help'
+    - '&fDeveloped by &7Lumina Games'
+    - '&fVisit: &6&nhttps://github.com/LuminaGames/PlayerLogger/wiki'
+    - '&fto get help related to the plugin commands and permissions'

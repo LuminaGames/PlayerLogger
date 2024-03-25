@@ -48,7 +48,7 @@ public enum Message {
 
         String message;
         if (value == null) {
-            message = "BattleBox: message not found (" + this.path + ")";
+            message = "Player Logger: message not found (" + this.path + ")";
         } else {
             message = value instanceof List ? PluginUtils.fromList((List<?>) value) : value.toString();
         }

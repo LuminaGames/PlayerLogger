@@ -29,7 +29,7 @@ public class DatabaseManager {
         host = utils.getPluginConfig().getConfig().getString("database.host");
         port = utils.getPluginConfig().getConfig().getString("database.port");
         if (utils.getPluginConfig().getConfig().getBoolean("database.enabled")) {
-            Url = "jdbc:mysql://" + host + ":" + port + "/" + database;
+            Url = "jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true";
             Bukkit.getLogger().info("Using Storage Method [MySQL]");
         } else {
             Bukkit.getLogger().info("Using Storage Method [SQLite]");
