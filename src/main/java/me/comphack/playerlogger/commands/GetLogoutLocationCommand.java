@@ -1,9 +1,12 @@
 package me.comphack.playerlogger.commands;
 
+import me.comphack.playerlogger.data.PlayerLog;
+import me.comphack.playerlogger.database.Database;
+import me.comphack.playerlogger.utils.Message;
 import me.comphack.playerlogger.utils.Utils;
 import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommand;
 import me.comphack.playerlogger.PlayerLogger;
-import me.comphack.playerlogger.database.DatabaseManager;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 
 public class GetLogoutLocationCommand implements SubCommand {
@@ -31,14 +34,10 @@ public class GetLogoutLocationCommand implements SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        DatabaseManager database = plugin.getDatabase();
+        Database database = plugin.getDatabase();
+        PlayerLog log = database.getLogs(args[1]);
+        Location loc = log.getLastJoinLocation();
+        Message.GET_LAST_JOIN_LOCATION.send(sender, "{player}", log.getUsername(), "{location}",Utils.formatLocation(loc));
 
-        if(args[1].contains("-") || args[1].contains("'") || args[1].contains("\"")){
-            sender.sendMessage(Utils.cc("&cPlease specify a player or a appropriate characters"));
-        } else {
-            String location = database.getLogoutLocation(args[1]);
-            sender.sendMessage(Utils.cc("&6Logout Location for &f" + args[1]));
-            sender.sendMessage(Utils.cc("&7(X, Y, Z, World) &f" + location));
-        }
     }
 }

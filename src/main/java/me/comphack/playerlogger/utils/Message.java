@@ -15,7 +15,15 @@ public enum Message {
     NO_PERMISSION("messages.no-permission"),
     PLAYER_ONLY_COMMAND("messages.playeronly-command"),
     HELP_MESSAGE("messages.help-message"),
-    GET_LOGS_FORMAT("messages.get-logs");
+    GET_LOGS_FORMAT("messages.get-logs"),
+    GET_FIRST_JOIN_LOCATION("messages.first-join-location"),
+    GET_LAST_JOIN_LOCATION("messages.last-join-location"),
+    GET_CHAT_LOGS_FORMAT("messages.chat-logs-format"),
+    GET_COMMAND_LOGS_FORMAT("message.command-logs-format"),
+    PLUGIN_RELOAD("message.reload"),
+    LAST_JOIN_DATE("message.last-join-date"),
+    PLAYER_NOT_FOUND("message.player-not-found");
+
 
     private final String path;
     private static FileConfiguration config;
@@ -33,7 +41,7 @@ public enum Message {
 
         String message;
         if (value == null) {
-            message = "BattleBox: message not found (" + this.path + ")";
+            message = "Player Logger: message not found (" + this.path + ")";
         } else {
             message = value instanceof List ? PluginUtils.fromList((List<?>) value) : value.toString();
         }

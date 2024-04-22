@@ -1,4 +1,4 @@
-package me.comphack.playerlogger.utils;
+package me.comphack.playerlogger.data;
 
 public class PlayerChat {
 

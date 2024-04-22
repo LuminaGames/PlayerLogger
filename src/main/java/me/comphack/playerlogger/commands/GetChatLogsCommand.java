@@ -1,10 +1,10 @@
 package me.comphack.playerlogger.commands;
 
+import me.comphack.playerlogger.database.Database;
 import me.comphack.playerlogger.utils.Utils;
 import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommand;
 import me.comphack.playerlogger.PlayerLogger;
-import me.comphack.playerlogger.database.DatabaseManager;
-import me.comphack.playerlogger.utils.PlayerChat;
+import me.comphack.playerlogger.data.PlayerChat;
 import org.bukkit.command.CommandSender;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class GetChatLogsCommand implements SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        DatabaseManager db = plugin.getDatabase();
+        Database db = plugin.getDatabase();
         if(args.length <= 3) {
             sender.sendMessage(Utils.cc("{prefix} &7Not enough arguments provided"));
             return;

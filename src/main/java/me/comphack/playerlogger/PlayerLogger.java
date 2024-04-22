@@ -1,10 +1,11 @@
 package me.comphack.playerlogger;
 
-import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommand;
 import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommandManager;
 import me.comphack.playerlogger.commands.*;
-import me.comphack.playerlogger.database.DatabaseManager;
+import me.comphack.playerlogger.database.Database;
 
+import me.comphack.playerlogger.database.MySQL;
+import me.comphack.playerlogger.database.SQLite;
 import me.comphack.playerlogger.events.ChatEvent;
 import me.comphack.playerlogger.events.CommandSendEvent;
 import me.comphack.playerlogger.events.JoinEvent;
@@ -19,7 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class PlayerLogger extends JavaPlugin implements Listener {
-    private DatabaseManager dbmanager = new DatabaseManager();
+    private Database database;
     static boolean updateAvailable = false;
     private SubCommandManager commandManager;
 
@@ -32,8 +33,13 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         getLogger().info("Loaded Configurations");
         Message.setConfiguration(getConfig());
         // Setup Database
-        dbmanager.setupJDBC();
-        dbmanager.PluginDatabase();
+
+        if(getConfig().getBoolean("database.enabled")) {
+            database = new  MySQL(this);
+        } else {
+            database = new SQLite(this);
+        }
+
         getLogger().info("Loaded Database!");
         //Register Events and Commands
         initializeEvents();
@@ -77,7 +83,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         getLogger().info("--------------------------------------------------");
         getLogger().info("                                                  ");
         getLogger().info("          Enabled Player Logger                   ");
-        getLogger().info("                 " + getServer().getPluginManager().getPlugin("PlayerLogger").getDescription().getVersion());
+        getLogger().info("                 " + getDescription().getVersion());
         getLogger().info("                                                  ");
         getLogger().info("           Developed by COMPHACK                  ");
         getLogger().info("         Running on " + getServer().getVersion());
@@ -97,10 +103,10 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         commandManager.registerCommand("help", new HelpCommand());
     }
     public void initializeEvents() {
-        Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new LeaveEvent(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new ChatEvent(), this);
-        Bukkit.getServer().getPluginManager().registerEvents(new CommandSendEvent(), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new JoinEvent(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new LeaveEvent(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new ChatEvent(this), this);
+        Bukkit.getServer().getPluginManager().registerEvents(new CommandSendEvent(this), this);
 
     }
 
@@ -109,15 +115,13 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         getLogger().info("PlayerLogger has successfully shut down");
         getLogger().info("Plugin Version:" + getServer().getPluginManager().getPlugin("PlayerLogger").getDescription().getVersion());
         getLogger().info("Thank You For using my plugin.");
-        dbmanager.closeConnection();
-
     }
 
     public static boolean isUpdateAvailable() {
         return updateAvailable;
     }
 
-    public DatabaseManager getDatabase() {
-        return dbmanager;
+    public Database getDatabase() {
+        return database;
     }
 }

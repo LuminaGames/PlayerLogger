@@ -3,6 +3,7 @@ package me.comphack.playerlogger.utils;
 import me.comphack.playerlogger.PlayerLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Utils {
@@ -24,7 +25,12 @@ public class Utils {
         return ver;
     }
 
-
+    public static String formatLocation(Location location) {
+        if(location == null) {
+            return null;
+        }
+        return location.getWorld().getName() + ", " + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ();
+    }
 
 
 }

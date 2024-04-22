@@ -1,0 +1,14 @@
+name: PlayerLogger
+version: 2.0.0
+main: me.comphack.playerlogger.PlayerLogger
+api-version: 1.13
+load: STARTUP
+authors: [COMPHACK]
+description: A simple plugins that logs information about your players on the server
+commands:
+    playerlogger:
+        description: Basic Plugin Command for PlayerLogger
+        aliases:
+        - plogger
+        - plogs
+        - plog

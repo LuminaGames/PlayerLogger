@@ -1,9 +1,12 @@
 package me.comphack.playerlogger.commands;
 
-import io.github.vedantmulay.neptuneapi.bukkit.Utils;
 import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommand;
 import me.comphack.playerlogger.PlayerLogger;
-import me.comphack.playerlogger.database.DatabaseManager;
+import me.comphack.playerlogger.data.PlayerLog;
+import me.comphack.playerlogger.database.Database;
+import me.comphack.playerlogger.utils.Message;
+import me.comphack.playerlogger.utils.Utils;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 
 public class GetFirstJoinLocationCommand implements SubCommand {
@@ -31,14 +34,10 @@ public class GetFirstJoinLocationCommand implements SubCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        DatabaseManager database = plugin.getDatabase();
+        Database database = plugin.getDatabase();
+        PlayerLog log = database.getLogs(args[1]);
+        Location loc = log.getFirstJoinLocation();
+        Message.GET_FIRST_JOIN_LOCATION.send(sender, "{player}", log.getUsername(), "{location}", Utils.formatLocation(log.getFirstJoinLocation()) == null ? Utils.formatLocation(log.getFirstJoinLocation()) : "Not Found");
 
-        if(args[1].contains("-") || args[1].contains("'") || args[1].contains("\"")) {
-            sender.sendMessage(Utils.cc("&cPlease specify a player or a appropriate characters"));
-        } else {
-            String location = database.getFirstJoinInfo(args[1]);
-            sender.sendMessage(Utils.cc("&6First Location for " + args[1]));
-            sender.sendMessage(Utils.cc("&6X, Y ,Z , World: &f" + location));
-        }
     }
 }
