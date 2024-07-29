@@ -13,6 +13,8 @@ Report any bugs or errors in the plugin here.
 
 ## Third Party Libraries
 * [bStats](https://bstats.org)
+* [Hikari CP](https://github.com/brettwooldridge/HikariCP)
+* [Placeholder API](https://placeholderapi.com)
 
 <h2 align="center">Servers Using Player Logger</h2>
 
