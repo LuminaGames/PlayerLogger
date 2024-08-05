@@ -43,9 +43,10 @@ public class SQLite implements Database {
         String url = "jdbc:sqlite:" + dataFile;
 
         try {
+            Class.forName("org.sqlite.JDBC");
             this.connection = DriverManager.getConnection(url);
             plugin.getLogger().info("Connected to MySQL database successfully");
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             plugin.getLogger().info("Could not connect to SQLite database");
         }

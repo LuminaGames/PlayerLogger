@@ -1,5 +1,6 @@
 package me.comphack.playerlogger;
 
+import fr.mrmicky.fastinv.FastInvManager;
 import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommandManager;
 import me.comphack.playerlogger.commands.*;
 import me.comphack.playerlogger.database.Database;
@@ -23,10 +24,13 @@ public class PlayerLogger extends JavaPlugin implements Listener {
     private Database database;
     static boolean updateAvailable = false;
     private SubCommandManager commandManager;
+    private static PlayerLogger instance;
 
     @Override
     public void onEnable() {
         // Load Plugin Configs
+
+        instance = this;
         commandManager = new SubCommandManager();
         getConfig().options().copyDefaults(true);
         saveConfig();
@@ -39,6 +43,8 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         } else {
             database = new SQLite(this);
         }
+
+        FastInvManager.register(this);
 
         getLogger().info("Loaded Database!");
         //Register Events and Commands
@@ -123,5 +129,9 @@ public class PlayerLogger extends JavaPlugin implements Listener {
 
     public Database getDatabase() {
         return database;
+    }
+
+    public static PlayerLogger getInstance() {
+        return instance;
     }
 }
