@@ -15,6 +15,9 @@ Report any bugs or errors in the plugin here.
 * [bStats](https://bstats.org)
 * [Hikari CP](https://github.com/brettwooldridge/HikariCP)
 * [Placeholder API](https://placeholderapi.com)
+* [Fast Inv](https://github.com/MrMicky-FR/FastInv)
+* [XSeries](https://github.com/CryptoMorin/XSeries)
+* [Neptune API](https://github.com/LuminaGames/NeptuneAPI)
 
 <h2 align="center">Servers Using Player Logger</h2>
 
