@@ -3,6 +3,7 @@ package me.comphack.playerlogger.events;
 import me.comphack.playerlogger.PlayerLogger;
 import me.comphack.playerlogger.data.PlayerLog;
 import me.comphack.playerlogger.database.Database;
+import me.comphack.playerlogger.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
@@ -41,7 +42,7 @@ public class JoinEvent implements Listener {
         }
 
         if(e.getPlayer().isOp() && PlayerLogger.isUpdateAvailable()) {
-            e.getPlayer().sendMessage("An update of player logger is available. You can download it from spigot mc");
+            e.getPlayer().sendMessage(Utils.cc("&6An update of Player Logger is available... \n&fDownload: &ahttps://modrinth.com/plugin/player-logger"));
         }
     }
 }

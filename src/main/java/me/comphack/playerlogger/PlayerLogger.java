@@ -83,6 +83,8 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         SubCommandManager.setPlayerOnlyCommandMessage(Message.PLAYER_ONLY_COMMAND.asString());
         SubCommandManager.setNoPermissionMessage(Message.NO_PERMISSION.asString());
         SubCommandManager.setUnknownCommandMessage(Message.UNKNOWN_COMMAND.asString());
+
+
     }
 
     public void onEnableText() {
