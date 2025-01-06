@@ -165,7 +165,12 @@ public class MySQL implements Database {
                 double logoutX = rs.getDouble("logout_x");
                 double logoutY = rs.getDouble("logout_y");
                 double logoutZ = rs.getDouble("logout_z");
-                Location logoutLocation = new Location(Bukkit.getServer().getWorld(logoutWorldName), logoutX, logoutY, logoutZ);
+                Location logoutLocation;
+                if(logoutWorldName != null) {
+                    logoutLocation = new Location(Bukkit.getServer().getWorld(logoutWorldName), logoutX, logoutY, logoutZ);
+                } else {
+                    logoutLocation = null;
+                }
                 String lastJoinDate = rs.getString("last_join_date");
                 String ip = rs.getString("ip_address");
 
