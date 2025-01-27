@@ -16,6 +16,13 @@ general:
     check-updates: true
     use-bstats: true
 
+webhooks:
+    enabled: false
+    url: "WEBHOOK_URL"
+    settings:
+        send-join: true
+        send-leave: true
+
 messages:
     prefix: "&7[&6PlayerLogger&7] "
     unknown-command: "{prefix}Unknown Command. Please type &6/playerlogger help"

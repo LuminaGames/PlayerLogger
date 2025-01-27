@@ -6,12 +6,12 @@
 
     <groupId>me.comphack</groupId>
     <artifactId>playerlogger</artifactId>
-    <version>2.1.4</version>
+    <version>3.0.0</version>
     <packaging>jar</packaging>
 
     <name>PlayerLogger</name>
 
-    <description>An Powerful Logging Plugin for your minecraft server. Plugin logs information about IP Address, Last Joining Date, First Joining Location and Log Out location of your players</description>
+    <description>An powerful logging plugin for your minecraft server. Plugin logs information about IP Address, Last Joining Date, First Joining Location and Log Out location of your players</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,6 +40,10 @@
                         </goals>
                         <configuration>
                             <relocations>
+                                <relocation>
+                                    <pattern>club.minnced.discord.webhook</pattern>
+                                    <shadedPattern>me.comphack.playerlogger.libs.webhook</shadedPattern>
+                                </relocation>
                                 <relocation>
                                     <pattern>com.zaxxer.hikari</pattern>
                                     <shadedPattern>me.comphack.playerlogger.libs.hikari</shadedPattern>
@@ -144,6 +148,10 @@
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
-
+        <dependency>
+            <groupId>club.minnced</groupId>
+            <artifactId>discord-webhooks</artifactId>
+            <version>0.8.4</version>
+        </dependency>
     </dependencies>
 </project>

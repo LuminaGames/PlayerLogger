@@ -29,9 +29,9 @@ public class JoinEvent implements Listener {
         InetSocketAddress address = e.getPlayer().getAddress();
         String username = e.getPlayer().getName();
         UUID uuid = e.getPlayer().getUniqueId();
-        Double x = e.getPlayer().getLocation().getX();
-        Double y = e.getPlayer().getLocation().getY();
-        Double z = e.getPlayer().getLocation().getZ();
+        double x = e.getPlayer().getLocation().getX();
+        double y = e.getPlayer().getLocation().getY();
+        double z = e.getPlayer().getLocation().getZ();
         World world = e.getPlayer().getWorld();
 
         //Sets the IP Address of the player in the database
@@ -43,6 +43,10 @@ public class JoinEvent implements Listener {
 
         if(e.getPlayer().isOp() && PlayerLogger.isUpdateAvailable()) {
             e.getPlayer().sendMessage(Utils.cc("&6An update of Player Logger is available... \n&fDownload: &ahttps://modrinth.com/plugin/player-logger"));
+        }
+
+        if(PlayerLogger.WEBHOOK_LOGGING && plugin.getConfig().getBoolean("webhooks.settings.send-join")) {
+            plugin.getWebhookSender().sendJoinEmbed(plugin.getDatabase().getLogs(e.getPlayer().getName()));
         }
     }
 }

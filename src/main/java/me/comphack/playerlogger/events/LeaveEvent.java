@@ -20,12 +20,10 @@ public class LeaveEvent implements Listener {
     @EventHandler
     public void onLeaveEvent(PlayerQuitEvent e) {
         Database db = plugin.getDatabase();
-        String player = e.getPlayer().getName();
-        Double x = e.getPlayer().getLocation().getX();
-        Double y = e.getPlayer().getLocation().getY();
-        Double z = e.getPlayer().getLocation().getZ();
-        String world = e.getPlayer().getWorld().getName();
         db.setLogoutInfo(e.getPlayer().getName(), e.getPlayer().getLocation());
 
+        if(PlayerLogger.WEBHOOK_LOGGING && plugin.getConfig().getBoolean("webhooks.settings.send-leave")) {
+            plugin.getWebhookSender().sendLeaveEmbed(plugin.getDatabase().getLogs(e.getPlayer().getName()));
+        }
     }
 }

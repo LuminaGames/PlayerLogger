@@ -1,5 +1,7 @@
 package me.comphack.playerlogger;
 
+import club.minnced.discord.webhook.WebhookClient;
+import club.minnced.discord.webhook.WebhookClientBuilder;
 import fr.mrmicky.fastinv.FastInvManager;
 import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommandManager;
 import me.comphack.playerlogger.commands.*;
@@ -14,6 +16,7 @@ import me.comphack.playerlogger.events.LeaveEvent;
 import me.comphack.playerlogger.utils.Message;
 import me.comphack.playerlogger.utils.Metrics;
 import me.comphack.playerlogger.utils.UpdateChecker;
+import me.comphack.playerlogger.webhooks.WebHookSender;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,6 +28,9 @@ public class PlayerLogger extends JavaPlugin implements Listener {
     static boolean updateAvailable = false;
     private SubCommandManager commandManager;
     private static PlayerLogger instance;
+    WebhookClient webhookClient;
+    WebHookSender webHookSender;
+    public static boolean WEBHOOK_LOGGING = false;
 
     @Override
     public void onEnable() {
@@ -42,6 +48,13 @@ public class PlayerLogger extends JavaPlugin implements Listener {
             database = new  MySQL(this);
         } else {
             database = new SQLite(this);
+        }
+
+        //Load webhook logger
+        if(getConfig().getBoolean("webhooks.enabled")) {
+            webhookClient = WebhookClient.withUrl(getConfig().getString("webhooks.url"));
+            webHookSender = new WebHookSender(webhookClient);
+            WEBHOOK_LOGGING = true;
         }
 
         FastInvManager.register(this);
@@ -120,6 +133,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+        webhookClient.close();
         getLogger().info("PlayerLogger has successfully shut down");
         getLogger().info("Plugin Version:" + getServer().getPluginManager().getPlugin("PlayerLogger").getDescription().getVersion());
         getLogger().info("Thank You For using my plugin.");
@@ -135,5 +149,9 @@ public class PlayerLogger extends JavaPlugin implements Listener {
 
     public static PlayerLogger getInstance() {
         return instance;
+    }
+
+    public WebHookSender getWebhookSender() {
+        return webHookSender;
     }
 }
