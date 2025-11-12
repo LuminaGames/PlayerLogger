@@ -1,7 +1,6 @@
 package me.comphack.playerlogger;
 
 import club.minnced.discord.webhook.WebhookClient;
-import club.minnced.discord.webhook.WebhookClientBuilder;
 import fr.mrmicky.fastinv.FastInvManager;
 import io.github.vedantmulay.neptuneapi.bukkit.commands.subcommand.SubCommandManager;
 import me.comphack.playerlogger.commands.*;
