@@ -19,9 +19,35 @@ general:
 webhooks:
     enabled: false
     url: "WEBHOOK_URL"
-    settings:
-        send-join: true
-        send-leave: true
+    join:
+        enabled: true
+        color: "0x4CAF50"
+        title: "✅ Player Connected"
+        thumbnail: "https://api.mineatar.io/face/{uuid}"
+        footer: "Joined the server"
+
+        fields:
+            - name: "Username"
+              value: "{username}"
+              inline: false
+            - name: "IP Address"
+              value: "||{ip}||"
+              inline: false
+
+    leave:
+        enabled: true
+        color: "0xF44336"
+        title: "❌ Player Disconnected"
+        thumbnail: "https://api.mineatar.io/face/{uuid}"
+        footer: "Left the server"
+
+        fields:
+            - name: "Username"
+              value: "{username}"
+              inline: false
+            - name: "IP Address"
+              value: "||{ip}||"
+              inline: false
 
 messages:
     prefix: "&7[&6PlayerLogger&7] "

@@ -45,8 +45,8 @@ public class JoinEvent implements Listener {
             e.getPlayer().sendMessage(Utils.cc("&6An update of Player Logger is available... \n&fDownload: &ahttps://modrinth.com/plugin/player-logger"));
         }
 
-        if(PlayerLogger.WEBHOOK_LOGGING && plugin.getConfig().getBoolean("webhooks.settings.send-join")) {
-            plugin.getWebhookSender().sendJoinEmbed(plugin.getDatabase().getLogs(e.getPlayer().getName()));
+        if(PlayerLogger.WEBHOOK_LOGGING && plugin.getConfig().getBoolean("webhooks.join.enabled")) {
+            plugin.getWebhookSender().sendEmbed(plugin.getDatabase().getLogs(e.getPlayer().getName()), "join");
         }
     }
 }

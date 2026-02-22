@@ -22,8 +22,8 @@ public class LeaveEvent implements Listener {
         Database db = plugin.getDatabase();
         db.setLogoutInfo(e.getPlayer().getName(), e.getPlayer().getLocation());
 
-        if(PlayerLogger.WEBHOOK_LOGGING && plugin.getConfig().getBoolean("webhooks.settings.send-leave")) {
-            plugin.getWebhookSender().sendLeaveEmbed(plugin.getDatabase().getLogs(e.getPlayer().getName()));
+        if(PlayerLogger.WEBHOOK_LOGGING && plugin.getConfig().getBoolean("webhooks.leave.enabled")) {
+            plugin.getWebhookSender().sendEmbed(plugin.getDatabase().getLogs(e.getPlayer().getName()), "leave");
         }
     }
 }
