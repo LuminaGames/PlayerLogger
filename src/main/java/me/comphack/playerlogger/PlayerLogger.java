@@ -23,6 +23,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class PlayerLogger extends JavaPlugin implements Listener {
+
     private Database database;
     static boolean updateAvailable = false;
     private SubCommandManager commandManager;
@@ -76,7 +77,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
             UpdateChecker.init(this, 103033).requestUpdateCheck().whenComplete((result, exception) -> {
                 if (result.requiresUpdate()) {
                     updateAvailable = true;
-                    this.getLogger().info(String.format("An update is available! PlayerLogger %s may be downloaded on SpigotMC", result.getNewestVersion()));
+                    this.getLogger().info(String.format("An update is available! PlayerLogger %s may be downloaded on Modrinth https://modrinth.com/plugin/player-logger", result.getNewestVersion()));
                     return;
                 }
                 UpdateChecker.UpdateReason reason = result.getReason();
@@ -135,7 +136,7 @@ public class PlayerLogger extends JavaPlugin implements Listener {
         webhookClient.close();
         getLogger().info("PlayerLogger has successfully shut down");
         getLogger().info("Plugin Version:" + getServer().getPluginManager().getPlugin("PlayerLogger").getDescription().getVersion());
-        getLogger().info("Thank You For using my plugin.");
+        getLogger().info("Thank You for using my plugin.");
     }
 
     public static boolean isUpdateAvailable() {

@@ -6,7 +6,7 @@
 
     <groupId>me.comphack</groupId>
     <artifactId>playerlogger</artifactId>
-    <version>3.1.2</version>
+    <version>3.1.4</version>
     <packaging>jar</packaging>
 
     <name>PlayerLogger</name>
@@ -102,7 +102,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.21.11-R0.1-SNAPSHOT</version>
+            <version>26.1.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
